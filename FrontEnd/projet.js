@@ -189,6 +189,24 @@ function previewImage() {
 }
 
 
+function resetPreview() {
+    const input = document.getElementById('photo');
+    const label = document.getElementById('fileLabel');
+    const preview = document.getElementById('preview');
+    
+
+
+    label.classList.add("fa-image");
+    btnFichier.style.display = "block";
+    preview.src = '';
+    input.value = '';
+
+
+}
+
+
+
+
 
     document.getElementById("monFormulaire").addEventListener("submit", async function(event) {
         event.preventDefault();  
@@ -210,7 +228,19 @@ function previewImage() {
         })
         
         if(reponse.ok){
-            window.location.href = 'index.html';
+            const sectionFiche= document.querySelector(".gallery")
+            const workElement= document.querySelector(".jsfigure")
+            const sectionFicheModal= document.querySelector("#js-modal-gallerie")
+            const workElementModal= document.createElement("figure")
+
+            sectionFicheModal.appendChild(workElementModal)
+            sectionFiche.appendChild(workElement)
+            sectionFiche.innerHTML = '';
+            formulaire.reset();
+            resetPreview();
+            sectionFicheModal.innerHTML='';
+            genererModalWorks();
+            MAJWorks()
             console.log(reponse)
         }
         
@@ -218,5 +248,4 @@ function previewImage() {
     });
 
 
-
-
+     

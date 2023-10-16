@@ -43,8 +43,18 @@ export function cacherPopup() {
 
 const reponseWorks = await fetch("http://localhost:5678/api/works");
 const works = await reponseWorks.json();
-export function genererModalWorks(){
-    for (let i=0; i<works.length; i++){
+export  async function genererModalWorks(){
+    const token = window.localStorage.getItem('jwtToken');
+    const reponse = await fetch("http://localhost:5678/api/works", {
+                method: "GET",
+                headers: { "Authorization": `Bearer ${token}`, },
+            });
+            if (!reponse.ok) {
+                console.error("La récupération de la liste des articles a échoué");
+                return;
+            }else{
+                const works = await reponse.json();
+                for (let i=0; i<works.length; i++){
      const article= works[i]
      const sectionFicheModal= document.querySelector("#js-modal-gallerie")
      const workElementModal= document.createElement("figure")
@@ -59,10 +69,9 @@ export function genererModalWorks(){
      sectionFicheModal.appendChild(workElementModal)
      workElementModal.appendChild(imageElementModal)
      workElementModal.appendChild(btnEffacerElement)
-     
-     
+           
     
-
+     
      
      btnEffacerElement.addEventListener("click" , async function(event){
         event.preventDefault()
@@ -90,18 +99,7 @@ export function genererModalWorks(){
           MAJWorks()
           
            
-          
-          
-          
-          
-          
-          
-          
-            
-           
-
-
-         
+        
         }else{
         const errorData = await reponse.json();
         console.log("Erreur lors de la connexion :", errorData.message)
@@ -109,7 +107,7 @@ export function genererModalWorks(){
      
      })
      
-     }
+     } }
      
  }
  genererModalWorks()
