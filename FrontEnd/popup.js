@@ -1,4 +1,4 @@
-import {genererWorks} from "./projet.js"
+import {resetPreview , } from "./projet.js"
 
 
 export function afficherPopup() {
@@ -23,9 +23,14 @@ export function cacherPopup() {
     let popupBackground = document.querySelector(".popupbackground")
     let btnFermer1=document.querySelector("#js-modal .js-modal-close")
     let btnFermer2=document.querySelector("#js-modal2 .js-modal-close")
+    const formulaire = document.getElementById("monFormulaire");
+    let modalWrapper2=document.querySelector("#js-modal2 .js-modal");
+    let modalWrapper= document.querySelector("#js-modal .js-modal")
+
     btnModifier.addEventListener("click", () => {
        console.log("j'ai cliqué")
-       
+        modalWrapper2.classList.add("active");
+        modalWrapper.classList.remove("active")
         afficherPopup()
     })
 
@@ -34,6 +39,8 @@ export function cacherPopup() {
 
         if (event.target === popupBackground || event.target===btnFermer1 || event.target===btnFermer2) {
             console.log(event.target)
+            formulaire.reset();
+           resetPreview();
             cacherPopup()
         }
     })
@@ -173,9 +180,13 @@ btnModalAjout.addEventListener("click" , function(){
     
 let btnRetour=document.querySelector("#modal-retour")
 let modalWrapper2=document.querySelector("#js-modal2 .js-modal")
+const formulaire = document.getElementById("monFormulaire");
 btnRetour.addEventListener("click" , function(){
     modalWrapper2.classList.add("active")
     modalWrapper.classList.remove("active")
+    formulaire.reset();
+    resetPreview();
+
 })
 
 

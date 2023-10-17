@@ -189,7 +189,7 @@ function previewImage() {
 }
 
 
-function resetPreview() {
+export function resetPreview() {
     const input = document.getElementById('photo');
     const label = document.getElementById('fileLabel');
     const preview = document.getElementById('preview');
