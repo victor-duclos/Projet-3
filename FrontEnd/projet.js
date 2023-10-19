@@ -240,12 +240,33 @@ export function resetPreview() {
             resetPreview();
             sectionFicheModal.innerHTML='';
             genererModalWorks();
-            MAJWorks()
+            MAJWorks();
+            btnValider.disabled = true;
+            btnValider.style.color = "black";
             console.log(reponse)
+        }else{
+            alert("Echec de l'envoi. Veuillez mettre une photo, un titre et une categorie")
         }
         
 
     });
 
+        let inputImage = document.getElementById("photo");
+        let inputTitre = document.querySelector("#title");
+        let inputCategorie = document.getElementById("categoryId");
+        let btnValider = document.getElementById("js-ajouter-formulaire");
+        btnValider.disabled = true;
+        btnValider.style.color="black";
+    function btnValiderActif() {
+        if (inputTitre.value !== "" && inputImage.value !== "" && inputCategorie.value !== "") {
+            btnValider.disabled = false;
+            btnValider.style.color = "white";
+        } else{
+            btnValider.disabled = true;
+        btnValider.style.color="black";
+        }
+    }
 
-     
+    inputTitre.addEventListener("input", btnValiderActif);
+    inputImage.addEventListener("input", btnValiderActif);
+    inputCategorie.addEventListener("input", btnValiderActif);

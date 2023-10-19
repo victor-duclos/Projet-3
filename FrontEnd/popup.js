@@ -41,6 +41,9 @@ export function cacherPopup() {
             console.log(event.target)
             formulaire.reset();
            resetPreview();
+           let btnValider = document.getElementById("js-ajouter-formulaire");
+        btnValider.disabled = true;
+        btnValider.style.color="black";
             cacherPopup()
         }
     })
@@ -186,6 +189,9 @@ btnRetour.addEventListener("click" , function(){
     modalWrapper.classList.remove("active")
     formulaire.reset();
     resetPreview();
+    let btnValider = document.getElementById("js-ajouter-formulaire");
+        btnValider.disabled = true;
+        btnValider.style.color="black";
 
 })
 
