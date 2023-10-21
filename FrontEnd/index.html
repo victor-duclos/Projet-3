@@ -11,7 +11,7 @@
 	<link rel="stylesheet" href="./assets/style.css">
 	<script src="https://kit.fontawesome.com/b60e31b667.js" crossorigin="anonymous"></script>
 	
-	<script type="module" src="projet.js" defer ></script>
+	<script type="module" src="projet.js"  ></script>
 </head>
 <body>
 	<aside class="banner">
@@ -83,9 +83,10 @@
 					
 					<label id="fileLabel" class="fa-regular fa-image"></label>
 					
-        			<img id="preview">
+        			<img id="preview" alt="">
         			<input type="file" name="image" id="photo" accept="image/*" style="display:none"><br>
-					<button type="button" id="btn-ajout-photo">+ Ajouter photo</button>
+					<button type="button" id="btn-ajout-photo">+ Ajouter photo</button><br>
+					<p id="p-preview">jpg, png : 4mo max</p>
 					</div><br>
 					<label for="name">Titre</label><br>
 					<input type="text" name="title" id="title">

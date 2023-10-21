@@ -1,7 +1,7 @@
 
 
 
-
+/** Générer la page de connexion. Si connecté, renvoie à la page d'acceuil et récupération du token*/
 export function genererLogin() {
     const formulaireIdentifiant = document.querySelector(".identifiant");
     formulaireIdentifiant.addEventListener("submit", async function (event) {
@@ -26,6 +26,7 @@ export function genererLogin() {
         const token = data.token;
         const id=data.userId
         console.log("Connexion réussie. Token JWT :", id ,token)
+        // Stocker le token
         window.localStorage.setItem('jwtToken' , token)
         renvoieIndex()
 
@@ -33,7 +34,8 @@ export function genererLogin() {
     }else{
         const errorData = await reponse.json();
                 console.log("Erreur lors de la connexion :", errorData.message)
-        afficherMessageErreur(errorData.message)
+        alert("Echec de la connexion. Veuillez vérifier votre e-mail et votre mot de passe.")
+        
     }
  
 
@@ -47,21 +49,7 @@ export function genererLogin() {
 
 
 
- export function afficherMessageErreur(message){
-     
-    let spanErreurMessage=document.getElementById("erreurMessage")
-    if (!spanErreurMessage){
-        let login=document.querySelector(".login")
-       spanErreurMessage=document.createElement("span")
-    spanErreurMessage.id="erreurMessage"
-    
-     login.append(spanErreurMessage)
-    }
-     
-   spanErreurMessage.innerText= message
-}
-
-
+/** Renvoie à la page d'accueil */
 export function renvoieIndex (){
     
     window.location.href = "index.html"

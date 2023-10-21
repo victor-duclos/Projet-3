@@ -1,6 +1,6 @@
 import {resetPreview , } from "./projet.js"
 
-
+/** Ouvrir et fermer la modal */
 export function afficherPopup() {
     let popupBackground = document.querySelector(".popupbackground")
 
@@ -16,7 +16,7 @@ export function cacherPopup() {
 
 }
 
-
+/** Fonctionnement de la modal */
  export function initAddEventListenerPopup() {
 
     let btnModifier = document.querySelector(".user-btn-modifier")
@@ -43,7 +43,7 @@ export function cacherPopup() {
            resetPreview();
            let btnValider = document.getElementById("js-ajouter-formulaire");
         btnValider.disabled = true;
-        btnValider.style.color="black";
+        btnValider.style.background="#A7A7A7";
             cacherPopup()
         }
     })
@@ -51,6 +51,7 @@ export function cacherPopup() {
 }
 
 
+/** Générer la gallerie dans la modal et fonction "supprimer un travail" */
 const reponseWorks = await fetch("http://localhost:5678/api/works");
 const works = await reponseWorks.json();
 export  async function genererModalWorks(){
@@ -106,7 +107,7 @@ export  async function genererModalWorks(){
            console.log("photo supprimée")
           workElementModal.remove()
           sectionFiche.innerHTML = '';
-          MAJWorks()
+          majWorks()
           
            
         
@@ -123,7 +124,8 @@ export  async function genererModalWorks(){
  genererModalWorks()
 
 
- export async function MAJWorks() {
+/** Mise à jour de la gallerie travail de la page d'accueil */
+ export async function majWorks() {
    
     const token = window.localStorage.getItem('jwtToken');
     
@@ -167,7 +169,7 @@ export  async function genererModalWorks(){
 
 
 
-
+/** Fonctionnement des modals lors du retour d'un modal à un autre avec reset du formulaire au moment du retour ou à la fermeture */
  let btnModalAjout= document.querySelector("#js-ajouter")
  let modalWrapper= document.querySelector("#js-modal .js-modal")
  console.log(modalWrapper)
@@ -191,7 +193,7 @@ btnRetour.addEventListener("click" , function(){
     resetPreview();
     let btnValider = document.getElementById("js-ajouter-formulaire");
         btnValider.disabled = true;
-        btnValider.style.color="black";
+        btnValider.style.background="#A7A7A7";
 
 })
 

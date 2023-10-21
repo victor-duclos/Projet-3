@@ -1,4 +1,4 @@
-import {genererModalWorks, initAddEventListenerPopup, MAJWorks} from "./popup.js"
+import {genererModalWorks, initAddEventListenerPopup, majWorks} from "./popup.js"
 
 
 
@@ -16,6 +16,8 @@ const categories= await reponseCategories.json()
 const reponseWorks = await fetch("http://localhost:5678/api/works")
 const works = await reponseWorks.json(); 
 
+
+/** Mettre en page le site */
 function genererPage(){
     const token = localStorage.getItem('jwtToken')
     let btnModifier = document.querySelector(".user-btn-modifier")
@@ -43,7 +45,7 @@ function genererPage(){
 
 
 }
-
+/** Générer la gallerie de la page d'accueil */
 // Récupération des travaux depuis le fichier JSON
 export async function genererWorks(works){
    await fetch("http://localhost:5678/api/works", {
@@ -72,6 +74,7 @@ export async function genererWorks(works){
     
 }
 
+/** Générer le filtre des catégories */
 function genererCategories(){
     let listeBouton= document.querySelectorAll(".btn-Categories")
     
@@ -102,58 +105,7 @@ console.log(noms)
 genererPage()
 
 
-
-/*
-const boutonTous= document.querySelector(".btn-tous")
-boutonTous.addEventListener("click" , function(){
-    document.querySelector(".gallery").innerHTML="";
-    genererWorks(works)
-})
-
-
-const boutonObjets= document.querySelector(".btn-objets")
-boutonObjets.addEventListener("click" , function(){
-    let worksObjets = works.filter(function (work) {
-        return work.categoryId === 1;
-    })
-    
-    document.querySelector(".gallery").innerHTML= "";
-    genererWorks(worksObjets)
-    console.log(worksObjets)
-   
-
-})
-
-const boutonAppartements= document.querySelector(".btn-appartements")
-boutonAppartements.addEventListener("click" , function(){
-    let worksAppartements = works.filter(function (work) {
-        return work.categoryId === 2;
-    })
-    
-    document.querySelector(".gallery").innerHTML= "";
-    genererWorks(worksAppartements)
-    console.log(worksAppartements)
-   
-
-})
-
-const boutonHotels= document.querySelector(".btn-hotels")
-boutonHotels.addEventListener("click" , function(){
-    let worksHotels = works.filter(function (work) {
-        return work.categoryId === 3;
-    })
-    
-    document.querySelector(".gallery").innerHTML= "";
-    genererWorks(worksHotels)
-    console.log(worksHotels)
-   
-
-})
-
-
-
-**/
-
+/** Gérer la prévisualisation de l'image dans la modal "ajouter travail" */
 let btnFichier= document.getElementById("btn-ajout-photo")
 let inputFile=document.getElementById("photo")
 console.log(btnFichier)
@@ -170,11 +122,13 @@ function previewImage() {
     const input = document.getElementById('photo');
     const label = document.getElementById('fileLabel');
     const preview = document.getElementById('preview');
+    const p= document.getElementById('p-preview');
     
     if (input.files && input.files[0]) {
         const reader = new FileReader();
         label.classList.remove("fa-image")
         btnFichier.style.display="none";
+        p.style.display="none";
 
         reader.onload = function (e) {
             preview.src = e.target.result;
@@ -188,16 +142,17 @@ function previewImage() {
     }
 }
 
-
+/** Reset de la prévisualisation */
 export function resetPreview() {
     const input = document.getElementById('photo');
     const label = document.getElementById('fileLabel');
     const preview = document.getElementById('preview');
-    
+    const p= document.getElementById('p-preview');
 
 
     label.classList.add("fa-image");
     btnFichier.style.display = "block";
+    p.style.display="block";
     preview.src = '';
     input.value = '';
 
@@ -207,23 +162,18 @@ export function resetPreview() {
 
 
 
-
+/** Générer l'ajout d'un nouveau travail */
     document.getElementById("monFormulaire").addEventListener("submit", async function(event) {
         event.preventDefault();  
         const token = window.localStorage.getItem('jwtToken');
 
         const formulaire = document.getElementById("monFormulaire");
         const formData = new FormData(formulaire);
-        
-
-
-    
+            
         const reponse= await fetch("http://localhost:5678/api/works", {
             method: "POST",
             body: formData,
-            headers: {"Authorization": `Bearer ${token}`}
-            
-            
+            headers: {"Authorization": `Bearer ${token}`}           
             
         })
         
@@ -240,9 +190,9 @@ export function resetPreview() {
             resetPreview();
             sectionFicheModal.innerHTML='';
             genererModalWorks();
-            MAJWorks();
+            majWorks();
             btnValider.disabled = true;
-            btnValider.style.color = "black";
+            btnValider.style.background = "#A7A7A7";
             console.log(reponse)
         }else{
             alert("Echec de l'envoi. Veuillez mettre une photo, un titre et une categorie")
@@ -251,19 +201,22 @@ export function resetPreview() {
 
     });
 
+
+ /** Activer ou désactiver le bouton ajouter nouveau travail */   
         let inputImage = document.getElementById("photo");
         let inputTitre = document.querySelector("#title");
         let inputCategorie = document.getElementById("categoryId");
         let btnValider = document.getElementById("js-ajouter-formulaire");
         btnValider.disabled = true;
-        btnValider.style.color="black";
+        btnValider.style.background="#A7A7A7";
+
     function btnValiderActif() {
         if (inputTitre.value !== "" && inputImage.value !== "" && inputCategorie.value !== "") {
             btnValider.disabled = false;
-            btnValider.style.color = "white";
+            btnValider.style.background = "#1D6154";
         } else{
             btnValider.disabled = true;
-        btnValider.style.color="black";
+            btnValider.style.background="#A7A7A7";
         }
     }
 
